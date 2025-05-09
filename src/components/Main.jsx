@@ -1,15 +1,18 @@
 import React from "react";
 import Card from "./Card.jsx";
+import Button from "./Button.jsx"; 
+import languages from "../assets/languages.js"; 
+
 
 function Main() {
-    const [selectedLanguage, stActiveeLanguage] = udeState.useState(languages[0]);
+    const [selectedLanguage, setActiveLanguage] = useState(null);
     const renderSelectedLanguage = () => {
         if (selectedLanguage === null) { // controollo see la variabile è nulla e restituiscoo messaggio
             return (
-                <h3>Nessun lingiaggio selezionato</h3>
+                <h3>Nessun linguaggio selezionato</h3>
             );
         };//se la variabile non è nulla, restituisco il titolo e la descrizione del linguaggio selezionato
-        const { title, language }= selectedLanguage // destrutturo la variabile per accedere al titolo e al linguaggio
+        const { title, description } = selectedLanguage; // destrutturo la variabile per accedere al titolo e alla descrizione
         return ( 
             <> 
                 <Card title={title} description={description} /> 
@@ -17,27 +20,31 @@ function Main() {
         );
     };
 
+    // Removed unused renderButtons function
+    const renderButtons = () => {
+        return languages.map((language) => {
+            const active =
+            selectedLanguage && language.id === selectedLanguage.id
+            ? "btn-warning"
+            : "btn-primary";
+            return (
+               <Button 
+                    title={language.title} 
+                    key={language.id} 
+                    isActive={active} 
+                    onSelect={() => setActiveLanguage(language)}
+                />
+            ); 
+        });  
+    };
 
     return (
         <div className="container">
             <div className="mb-4">
-                {languages.map((language) => {
-                    const isActive = 
-                        selectedLanguage && language.id === selectedLanguage.id  
-                        ?  "btn-warning"
-                        : "btn-primary";
-                    
-                    return (// controllo se il linguaggio è attivo
-                    <button 
-                        onClick={() => setActiveLaguage(language)} 
-                        className="btn btn-prymary me-3" key={languagee.id}
-                        >
-                        {language.title}
-                    </button>
-                )})};
+                {renderButtons()}            
             </div>
-            <div>                
-                {renderSelectedLanguage()}                         
+            <div>
+                {renderSelectedLanguage()}          
             </div>
         </div>
     );
