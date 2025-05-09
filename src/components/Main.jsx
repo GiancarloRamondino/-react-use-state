@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "./Card.jsx";
 import Button from "./Button.jsx"; 
 import languages from "../assets/languages.js"; 
 
 
 function Main() {
-    const [selectedLanguage, setActiveLanguage] = useState(null);
+    const [selectedLanguage, setActiveLanguage] = useState(null); // inizializzo la variabile di stato per il linguaggio selezionato
     const renderSelectedLanguage = () => {
         if (selectedLanguage === null) { // controollo see la variabile è nulla e restituiscoo messaggio
             return (
